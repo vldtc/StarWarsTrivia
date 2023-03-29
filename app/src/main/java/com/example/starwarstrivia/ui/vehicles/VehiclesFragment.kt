@@ -6,14 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.example.starwarstrivia.R
-import com.example.starwarstrivia.databinding.FragmentVehiclesBinding
 
 class VehiclesFragment : Fragment() {
 
-    private var _binding : FragmentVehiclesBinding? = null
-    private val binding get() = _binding!!
+    companion object {
+        fun newInstance() = VehiclesFragment()
+    }
 
     private lateinit var viewModel: VehiclesViewModel
 
@@ -21,17 +20,7 @@ class VehiclesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val vehiclesViewModel =
-            ViewModelProvider(this).get(VehiclesViewModel::class.java)
-
-        _binding = FragmentVehiclesBinding.inflate(inflater, container, false)
-
-        val textView: TextView = binding.tvName
-        vehiclesViewModel.text.observe(viewLifecycleOwner){
-            textView.text = it
-        }
-
-        return binding.root
+        return inflater.inflate(R.layout.fragment_vehicles, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
